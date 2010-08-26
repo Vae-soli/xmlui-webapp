@@ -2,12 +2,12 @@
 
 <!--
     Gallery.xsl
-    
+
     Implements an image gallery view for Manakin. See the public "About this Theme"
     page for instructions on use and credits.
-    
+
 -->
-    
+
 
 <xsl:stylesheet xmlns:i18n="http://apache.org/cocoon/i18n/2.1"
 	xmlns:dri="http://di.tamu.edu/DRI/1.0/" xmlns:mets="http://www.loc.gov/METS/"
@@ -61,13 +61,13 @@
 	</xsl:variable>
 
 
-	<!-- 
+	<!--
         From: structural.xsl
-        Changes:  
+        Changes:
                 1. Added $themePath variable in a number of places  to reduce number of lookups ovia XPath
                 2. Added JS libraries : JQuery, AnythingZoomer, FancyBox
     -->
-    
+
     <!-- Things that need to be passed in to javascript from the config -->
     <xsl:template name="extraHead">
         <script type="text/javascript">
@@ -76,17 +76,17 @@
                 var themepath = "<xsl:value-of select="$themePath" />";
         </script>
     </xsl:template>
-	
 
-	<!-- 
+
+	<!--
         From: DIM-Handler.xsl
-        
+
         Changes:
                 1. reversed position of thumbnail and metadata
-       
-       Original comments:       
+
+       Original comments:
             An item rendered in the summaryList pattern. Commonly encountered in various browse-by pages
-            and search results. 
+            and search results.
     -->
 	<xsl:template name="itemSummaryList-DIM">
 
@@ -100,12 +100,12 @@
 	</xsl:template>
 
 
-	<!-- 
-        From: General-Handler.xsl        
-        
-        Changes: 
+	<!--
+        From: General-Handler.xsl
+
+        Changes:
          	1. moved thumbnail to another rule
-        
+
         Generate the thunbnail, if present, from the file section -->
 	<xsl:template match="mets:fileSec" mode="artifact-preview">
 		<!--
@@ -128,12 +128,12 @@
 		-->
 	</xsl:template>
 
-	<!-- 
+	<!--
         From DIM-Handler.xsl
         Changes:
                 1. rewrote/reordered to use the Fancybox JQuery library
-                
-        Generate the info about the item from the metadata section 
+
+        Generate the info about the item from the metadata section
     -->
 	<xsl:template match="dim:dim" mode="itemSummaryList-DIM">
 		<xsl:variable name="itemWithdrawn" select="@withdrawn"/>
@@ -142,7 +142,7 @@
 		<xsl:variable name="itemid" select="generate-id(node())"/>
 
 		<script type="text/javascript"> itemids.push("<xsl:value-of select="$itemid"/>"); </script>
-	
+
 		<!-- FancyBox link on image: opens popup -->
 		<a>
 			<xsl:attribute name="id">
@@ -158,7 +158,7 @@
 				<div class="artifact-preview">
 					<xsl:variable name="thumbnailUrl"
 						select="//mets:fileGrp[@USE='CONTENT']/mets:file[@MIMETYPE='image/jpeg']/mets:FLocat[@LOCTYPE='URL']/@xlink:href"/>
-					
+
 					<img alt="Thumbnail" class="thumbnail">
 						<xsl:attribute name="src">
 							<!-- TODO PMBMD - CHANGE BACK TO THUMBNAIL once larger 200px x 200px thumbnails are being generated -->
@@ -178,11 +178,11 @@
 							</xsl:attribute>
 						</img>
 					</div>
-					
+
 				</xsl:otherwise>
 			</xsl:choose></a>
-		
-		
+
+
 		<!-- item title -->
 		<p class="ds-artifact-title">
 			<xsl:variable name="artifactTitle">
@@ -204,8 +204,8 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</p>
-					
-		
+
+
 		<!-- Fancy box link on image -->
 		<a>
 			<xsl:attribute name="id">
@@ -250,7 +250,7 @@
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:attribute>
-							
+
 					<xsl:choose>
 						<xsl:when test="//mets:fileGrp[@USE='THUMBNAIL']">
                                                                 <!-- TODO CHANGE BACK TO THUMBNAIL -->
@@ -270,10 +270,10 @@
 										<xsl:value-of select="$themePath"/>
 										<xsl:text>lib/nothumbnail.png</xsl:text>
 									</xsl:attribute>
-								</img>						
+								</img>
 						</xsl:otherwise>
 					</xsl:choose>
-					
+
 				</xsl:element>
 
 				<strong>Author:</strong>
@@ -337,22 +337,22 @@
 					<xsl:text>, </xsl:text>
 				</xsl:if>
 			</p>
-			
+
 			<p class="detail-link"><a  href="{ancestor::mets:METS/@OBJID}">Go To Image</a></p>
 
 		</div>
 
 	</xsl:template>
 
-	<!-- 
+	<!--
         From structural.xsl
-        
+
         Changes:
-             1. Added a 'clearing' element 
-        
+             1. Added a 'clearing' element
+
         Summarylist case.  This template used to apply templates to the "pioneer" object (the first object
-        in the set) and let it figure out what to do. This is no longer the case, as everything has been 
-        moved to the list model. A special theme, called TableTheme, has beeen created for the purpose of 
+        in the set) and let it figure out what to do. This is no longer the case, as everything has been
+        moved to the list model. A special theme, called TableTheme, has beeen created for the purpose of
         preserving the pioneer model. -->
 	<xsl:template match="dri:referenceSet[@type = 'summaryList']" priority="2">
 		<xsl:apply-templates select="dri:head"/>
@@ -378,12 +378,12 @@
 		</xsl:choose>
 	</xsl:template>
 
-	<!-- 
+	<!--
         From: structural.xsl
-        
+
         Changes:
               1. modified to not use HTML list item: <li>
-        
+
         Then we resolve the reference tag to an external mets object -->
 	<xsl:template match="dri:reference" mode="summaryList">
 
@@ -413,17 +413,17 @@
 	</xsl:template>
 
 
-	<!-- 
+	<!--
         From: DIM-Handler.xsl
-        
+
         Changes:
             1. add in -line image viewing
             2. reordered elements
-            
+
         An item rendered in the summaryView pattern. This is the default way to view a DSpace item in Manakin. -->
 
 	<xsl:template name="itemSummaryView-DIM">
-		
+
 		<script type="text/javascript">
 			var o;
 		<xsl:for-each select="//mets:fileGrp[@USE='CONTENT']/mets:file[@MIMETYPE='image/jpeg']">
@@ -436,7 +436,7 @@
 		</script>
 
 		<!-- TJPZoom: the zoomable image  viewer -->
-		<div id="image-zoom-panel">
+		<!--<div id="image-zoom-panel">-->
 			<!-- Moved this into Javascript: see gallery.js
 				left this here just in case issues were found and needed to revert -->
 			<!--
@@ -446,8 +446,9 @@
 				</xsl:attribute>
 				</img>
 			-->
-			&#160; 
-		</div>
+			&#160;
+		<!--</div>-->
+                <div id="BookReader" style="left:10px; right:10px; top:10px; bottom:2em; height:500px; width:500px;">x</div>
 
 		<!-- Generate the info about the item from the metadata section -->
 		<xsl:apply-templates
@@ -597,7 +598,7 @@
                                 <xsl:value-of select="mets:FLocat[@LOCTYPE='URL']/@xlink:href"/>
                             </xsl:attribute>
                             <i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-viewOpen</i18n:text>
-                        </a> 
+                        </a>
                         <xsl:choose>
                             <xsl:when test="@MIMETYPE='application/pdf'">
                                 <xsl:text> or </xsl:text>
