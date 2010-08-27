@@ -424,16 +424,7 @@
 
 	<xsl:template name="itemSummaryView-DIM">
 
-		<script type="text/javascript">
-			var o;
-		<xsl:for-each select="//mets:fileGrp[@USE='CONTENT']/mets:file[@MIMETYPE='image/jpeg']">
-			o = new Object();
-			o.url = "<xsl:value-of select="mets:FLocat/@xlink:href"/>";
-			o.size = <xsl:value-of select="./@SIZE"/>;
-			o.title = "<xsl:value-of select="mets:FLocat/@xlink:title"/>";
-			imageJpegArray.push(o);
-		</xsl:for-each>
-		</script>
+
 
 		<!-- TJPZoom: the zoomable image  viewer -->
 		<!--<div id="image-zoom-panel">-->
