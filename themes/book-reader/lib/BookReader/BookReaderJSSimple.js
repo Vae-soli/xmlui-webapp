@@ -77,7 +77,7 @@ $(document).ready(function() {
 
     // Book title and the URL used for the book title link
     br.bookTitle= document.title;
-    br.bookUrl  = $('meta[name=DC.identifier]').attr('content');
+    br.bookUrl  = $('meta[name=DC.identifier][scheme=DCTERMS.URI]').attr('content');
 
     // Let's go!
     br.init();
