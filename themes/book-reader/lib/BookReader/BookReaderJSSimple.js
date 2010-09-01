@@ -20,45 +20,13 @@ $(document).ready(function() {
     // We load the images from archive.org -- you can modify this function to retrieve images
     // using a different URL structure
     br.getPageURI = function(index) {
-        var baseUrl = "http://localhost:8080/xmlui/bitstream/handle/1811/25108/";
-        switch(index)
-        {
-            case 0:
-                return baseUrl + '1576_1205.jpeg?sequence=7';
-                break;
-            case 1:
-                return baseUrl + '1576_1206.jpeg?sequence=6';
-                break;
-            case 2:
-                return baseUrl + '1576_1207.jpeg?sequence=5';
-                break;
-            case 3:
-                return baseUrl + '1576_1208.jpeg?sequence=4';
-                break;
-            case 4:
-                return baseUrl + '1576_1209.jpeg?sequence=3';
-                break;
-            case 5:
-                return baseUrl + '1576_1210.jpeg?sequence=2';
-                break;
-            case 6:
-                return baseUrl + '1576_1211.jpeg?sequence=1';
-                break;
-            default:
-                return "http://ia341334.us.archive.org/2/items/BookReader/img/page001.jpg";
-        }
-
-
-
-    //    var leafStr = '000';
-    //    var imgStr = (index+1).toString();
-    //    var re = new RegExp("0{"+imgStr.length+"}$");
-    //    var url = 'http://www.archive.org/download/BookReader/img/page'+leafStr.replace(re, imgStr) + '.jpg';
-    //    return url;
+        return $("table.file-list tr.ds-table-row td:first-child a").eq(index).attr("href");
+        //$("table.file-list tr.ds-table-row td:first-child a").each(function(){console.log($(this).attr("href"))});
     }
 
     // Return which side, left or right, that a given page should be displayed on
     br.getPageSide = function(index) {
+        //TODO - We have no way to know which side a book starts on
         if (0 == (index & 0x1)) {
             return 'R';
         } else {
@@ -105,11 +73,11 @@ $(document).ready(function() {
     }
 
     // Total number of leafs
-    br.numLeafs = 15;
+    br.numLeafs = $("table.file-list tr.ds-table-row td:first-child a").length;
 
     // Book title and the URL used for the book title link
-    br.bookTitle= 'Open Library Bookreader Presentation';
-    br.bookUrl  = 'http://openlibrary.org';
+    br.bookTitle= document.title;
+    br.bookUrl  = $('meta[name=DC.identifier]').attr('content');
 
     // Let's go!
     br.init();
