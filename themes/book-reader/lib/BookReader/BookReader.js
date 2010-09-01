@@ -75,7 +75,7 @@ function BookReader() {
     this.logoURL = 'http://www.archive.org/index.php';
     
     // Base URL for images
-    this.imagesBaseURL = '/bookreader/images/';
+    this.imagesBaseURL = '/xmlui/themes/book-reader/lib/BookReader/images';     //TODO: Why does this need to be set? Its working well for others.
     
     // Mode constants
     this.constMode1up = 1;
